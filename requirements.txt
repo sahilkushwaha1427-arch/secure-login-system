@@ -1,0 +1,4 @@
+Flask>=3.0
+bcrypt>=4.1
+pyotp>=2.9
+qrcode[pil]>=7.4

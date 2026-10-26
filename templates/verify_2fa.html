@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+{% block title %}Verify 2FA - Secure Login System{% endblock %}
+{% block content %}
+<h1>Two-Factor check</h1>
+<p class="sub">Authenticator app ka 6-digit code daalo, {{ session.get('pending_2fa_name') }}.</p>
+<form method="post" action="{{ url_for('verify_2fa') }}" autocomplete="off">
+  <input type="hidden" name="_csrf" value="{{ csrf_token() }}">
+  <label for="code">6-digit code</label>
+  <input type="text" id="code" name="code" inputmode="numeric" pattern="\d{6}" maxlength="6" required autofocus>
+  <button type="submit">Verify</button>
+</form>
+<p class="link"><a href="{{ url_for('login') }}">Wapas login</a></p>
+{% endblock %}

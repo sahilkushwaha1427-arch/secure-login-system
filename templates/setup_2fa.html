@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+{% block title %}Setup 2FA - Secure Login System{% endblock %}
+{% block content %}
+<h1>Setup 2FA</h1>
+<p class="sub">Google Authenticator / Authy se scan karo</p>
+
+{% if qr_data %}
+<div class="qr"><img src="data:image/png;base64,{{ qr_data }}" alt="2FA QR code"></div>
+{% endif %}
+<p>Ya manually ye key daalo:</p>
+<p><code>{{ secret }}</code></p>
+
+<form method="post" action="{{ url_for('setup_2fa') }}" autocomplete="off">
+  <input type="hidden" name="_csrf" value="{{ csrf_token() }}">
+  <label for="code">App me dikhne wala 6-digit code</label>
+  <input type="text" id="code" name="code" inputmode="numeric" pattern="\d{6}" maxlength="6" required>
+  <button type="submit">Verify &amp; Enable</button>
+</form>
+<p class="link"><a href="{{ url_for('dashboard') }}">Cancel</a></p>
+{% endblock %}

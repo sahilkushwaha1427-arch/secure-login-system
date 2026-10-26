@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+{% block title %}Login - Secure Login System{% endblock %}
+{% block content %}
+<h1>Welcome back</h1>
+<p class="sub">Apne account me login karo</p>
+<form method="post" action="{{ url_for('login') }}" autocomplete="off">
+  <input type="hidden" name="_csrf" value="{{ csrf_token() }}">
+  <label for="username">Username</label>
+  <input type="text" id="username" name="username" maxlength="30" required autofocus>
+  <label for="password">Password</label>
+  <input type="password" id="password" name="password" maxlength="72" required>
+  <button type="submit">Login</button>
+</form>
+<p class="link">Account nahi hai? <a href="{{ url_for('register') }}">Register karo</a></p>
+{% endblock %}

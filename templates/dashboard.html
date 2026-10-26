@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+{% block title %}Dashboard - Secure Login System{% endblock %}
+{% block content %}
+<h1>Hello, {{ user['username'] }}!</h1>
+<p class="sub">Aap securely logged in ho.</p>
+
+<p><strong>Email:</strong> {{ user['email'] }}</p>
+<p><strong>Two-Factor Authentication:</strong>
+  {% if user['totp_enabled'] %}<span class="badge on">Enabled</span>{% else %}<span class="badge off">Disabled</span>{% endif %}
+</p>
+
+{% if user['totp_enabled'] %}
+<hr>
+<form method="post" action="{{ url_for('disable_2fa') }}">
+  <input type="hidden" name="_csrf" value="{{ csrf_token() }}">
+  <label for="password">2FA disable karne ke liye password daalo</label>
+  <input type="password" id="password" name="password" maxlength="72" required>
+  <button type="submit" class="btn-light">Disable 2FA</button>
+</form>
+{% else %}
+<a class="btn" href="{{ url_for('setup_2fa') }}">Enable 2FA (optional)</a>
+{% endif %}
+
+<form method="post" action="{{ url_for('logout') }}">
+  <input type="hidden" name="_csrf" value="{{ csrf_token() }}">
+  <button type="submit" class="btn-danger">Logout</button>
+</form>
+{% endblock %}

@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+{% block title %}Register - Secure Login System{% endblock %}
+{% block content %}
+<h1>Create account</h1>
+<p class="sub">Naya account banao</p>
+<form method="post" action="{{ url_for('register') }}" autocomplete="off">
+  <input type="hidden" name="_csrf" value="{{ csrf_token() }}">
+  <label for="username">Username</label>
+  <input type="text" id="username" name="username" value="{{ username or '' }}" maxlength="30" pattern="[A-Za-z0-9_]{3,30}" required autofocus>
+  <div class="hint">3-30 characters: letters, numbers, underscore</div>
+  <label for="email">Email</label>
+  <input type="email" id="email" name="email" value="{{ email or '' }}" maxlength="254" required>
+  <label for="password">Password</label>
+  <input type="password" id="password" name="password" minlength="8" maxlength="72" required>
+  <div class="hint">Min 8 characters, 1 uppercase, 1 lowercase, 1 number</div>
+  <label for="confirm">Confirm password</label>
+  <input type="password" id="confirm" name="confirm" minlength="8" maxlength="72" required>
+  <button type="submit">Register</button>
+</form>
+<p class="link">Pehle se account hai? <a href="{{ url_for('login') }}">Login karo</a></p>
+{% endblock %}
